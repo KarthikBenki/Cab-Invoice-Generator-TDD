@@ -9,3 +9,10 @@ buildNumber.properties
 .mvn/timing.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
+.gradle/
+.idea/
+build.gradle
+gradle/
+gradlew
+gradlew.bat
+settings.gradle
