@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 public class InvoiceServiceTest {
   InvoiceGenerator invoiceGenerator = null;
   @BeforeEach
@@ -38,13 +39,14 @@ public class InvoiceServiceTest {
 test to calculate fare for multiple rides
    */
   @Test
-  public void givenMultipleRides_ShouldReturnTotalFare() {
+  public void givenMultipleRides_ShouldReturnInvoiceSummary() {
     InvoiceGenerator invoiceGenerator = new InvoiceGenerator(); // creating invoice generator object
     Ride[] rides = {new Ride(2.0, 5),
                     new Ride(0.1,1)
     };
-    double totalFare = invoiceGenerator.calculateFare(rides);
-    Assertions.assertEquals(30,totalFare);
+    InvoiceSummary summary = invoiceGenerator.calculateFare(rides);
+    InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 30.0);
+    Assertions.assertEquals(expectedInvoiceSummary,summary);
   }
 
 
