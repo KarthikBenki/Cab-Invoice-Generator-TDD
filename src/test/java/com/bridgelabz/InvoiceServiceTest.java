@@ -4,23 +4,23 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 public class InvoiceServiceTest {
-  InvoiceGenerator invoiceGenerator = null;
+  InvoiceService invoiceService = null;
+
   @BeforeEach
   public void setUp() {
-    invoiceGenerator = new InvoiceGenerator();
+    invoiceService = new InvoiceService();
   }
 
   /*
-    test to calculate total fare
-     */
+  test to calculate total fare
+   */
   @Test
   public void givenDistanceAndTime_ShouldReturnTotalFare() {
     double distance = 2.0;
     int time = 5;
     double fare =
-        invoiceGenerator.calculateFare(distance, time); // calculating fare by calling method
+        invoiceService.calculateFare(distance, time); // calculating fare by calling method
     Assertions.assertEquals(25, fare); // comparing expected and actual
   }
 
@@ -31,24 +31,20 @@ public class InvoiceServiceTest {
   public void givenLessDistanceAndTime_ShouldReturnTrue() {
     double distance = 0.1;
     int time = 1;
-    double fare = invoiceGenerator.calculateFare(distance, time); // 0.1*10+1*1=2;
+    double fare = invoiceService.calculateFare(distance, time); // 0.1*10+1*1=2;
     Assertions.assertEquals(5, fare); // expected is 5 as minimum fare is five
   }
 
   /*
-test to calculate fare for multiple rides
-   */
+  test to calculate fare for multiple rides
+     */
   @Test
   public void givenMultipleRides_ShouldReturnInvoiceSummary() {
-    InvoiceGenerator invoiceGenerator = new InvoiceGenerator(); // creating invoice generator object
-    Ride[] rides = {new Ride(2.0, 5),
-                    new Ride(0.1,1)
-    };
-    InvoiceSummary summary = invoiceGenerator.calculateFare(rides);
+    Ride[] rides = {new Ride(2.0, 5), new Ride(0.1, 1)};
+    InvoiceSummary summary = invoiceService.calculateFare(rides);
     InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 30.0);
-    Assertions.assertEquals(expectedInvoiceSummary,summary);
+    Assertions.assertEquals(expectedInvoiceSummary, summary);
   }
 
-
-
+  
 }
