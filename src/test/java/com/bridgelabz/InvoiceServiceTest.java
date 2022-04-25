@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class InvoiceServiceTest {
   InvoiceService invoiceService = null;
 
@@ -21,7 +23,7 @@ public class InvoiceServiceTest {
     int time = 5;
     double fare =
         invoiceService.calculateFare(distance, time); // calculating fare by calling method
-    Assertions.assertEquals(25, fare); // comparing expected and actual
+    assertEquals(25, fare); // comparing expected and actual
   }
 
   /*
@@ -32,7 +34,7 @@ public class InvoiceServiceTest {
     double distance = 0.1;
     int time = 1;
     double fare = invoiceService.calculateFare(distance, time); // 0.1*10+1*1=2;
-    Assertions.assertEquals(5, fare); // expected is 5 as minimum fare is five
+    assertEquals(5, fare); // expected is 5 as minimum fare is five
   }
 
   /*
@@ -43,7 +45,7 @@ public class InvoiceServiceTest {
     Ride[] rides = {new Ride(2.0, 5), new Ride(0.1, 1)};
     InvoiceSummary summary = invoiceService.calculateFare(rides);
     InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 30.0);
-    Assertions.assertEquals(expectedInvoiceSummary, summary);
+    assertEquals(expectedInvoiceSummary, summary);
   }
 
   @Test
@@ -56,6 +58,19 @@ public class InvoiceServiceTest {
     invoiceService.addRides(user2,rides2);
     InvoiceSummary summary = invoiceService.getInvoiceSummary(user1);
     InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2,30);
-    Assertions.assertEquals(expectedInvoiceSummary,summary);
+    assertEquals(expectedInvoiceSummary,summary);
+  }
+
+  @Test
+  public void givenNormalAndPremiumRides_ShouldReturnInvoiceSummary() {
+    String user1 = "karthik";
+    Ride[] rides1 = {new Ride(RideCategory.PREMIUM,2.0, 5), new Ride(RideCategory.NORMAL,0.1, 1)};
+    invoiceService.addRides(user1,rides1);
+    String user2 = "benki";
+    Ride[] rides2 = {new Ride(RideCategory.PREMIUM,3.0, 5), new Ride(RideCategory.NORMAL,0.1, 1)};
+    invoiceService.addRides(user2,rides2);
+    InvoiceSummary summary = invoiceService.getInvoiceSummary(user1);
+    InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 45);
+    assertEquals(expectedInvoiceSummary,summary);
   }
 }
