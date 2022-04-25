@@ -17,6 +17,4 @@ gradlew
 gradlew.bat
 settings.gradle
 build/
-*.iml
 *.xml
-Cab-Invoice-Generator-TDD.iml
