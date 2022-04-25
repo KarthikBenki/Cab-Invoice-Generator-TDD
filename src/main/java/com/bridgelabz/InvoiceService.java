@@ -21,7 +21,10 @@ public class InvoiceService {
   public InvoiceSummary calculateFare(Ride[] rides) {
     double totalFare = 0;
     for (Ride ride : rides) {
+      if(ride.category!=null)
       totalFare += ride.category.calculateCategoryFare(ride.distance, ride.time);
+      else
+        totalFare += this.calculateFare(ride.distance, ride.time);
     }
     return new InvoiceSummary(rides.length, totalFare);
   }
